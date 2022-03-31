@@ -1,6 +1,10 @@
 #pragma once
 
+#include "level.h"
+
 const static char INV_SIZE=10;
+
+struct Point;
 
 class Item;
 class Monster;
@@ -10,18 +14,25 @@ class Player{
 		Player(char *name);
 		~Player();
 		void hitMonster(Monster *target);
-		int x;
-		int y;
-		char *name;
-		
+		Point getPos();
+		void setPos(Point pos);
+		unsigned char getFloor();
+		void downLevel();
+		void upLevel();
+		void levelUp();
+		void drawInfo();
 	private:
+		char *name;
+		Point pos;
 		short hp;
 		short hpMax;
+		unsigned char points;
 		unsigned char dmgMin;
 		unsigned char dmgMax;
 		unsigned char ac;
 		unsigned char hit;
 		unsigned char level;
+		unsigned char dlevel;
 		unsigned int xp;
 		unsigned int xpMax;
 		unsigned char potions;

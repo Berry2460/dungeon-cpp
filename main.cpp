@@ -15,7 +15,7 @@ int main(){
 	while(gameLoop){
 		game->render();
 		std::cin >> in;
-		Control::gameControl(player, in);
+		game->doControls(in);
 	}
 	return 0;
 }

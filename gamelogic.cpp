@@ -1,32 +1,35 @@
 #include "gamelogic.h"
 #include "player.h"
 #include "monster.h"
-#include "level.h"
+#include "player.h"
+#include "control.h"
 
 #include <iostream>
 
 Game::Game(Player *player){
 	this->player=player;
-	this->monsters=new Monster[MAX_MONSTERS];
-	this->level=new Level(0, 0);
-	
+	for (int i=0; i<MAX_LEVELS; i++){
+		this->levels[i]=new Level(i+1, 1);
+	}
 }
 
 Game::~Game(){
-	//delete this->player;
-	delete [] this->monsters;
+	delete this->player;
+	delete [] this->levels;
 }
 
 void Game::render(){
 	std::system("cls");
 	
-	level->setTile(this->player->x, this->player->y, '@');
+	struct Point playerPos=this->player->getPos();
 	
-	int startx=this->player->x - 10;
-	int endx=this->player->x + 11;
+	this->levels[this->player->getFloor()]->setTile(playerPos.x, playerPos.y, '@');
 	
-	int starty=this->player->y - 5;
-	int endy=this->player->y + 6;
+	int startx=playerPos.x - 10;
+	int endx=playerPos.x + 11;
+	
+	int starty=playerPos.y - 5;
+	int endy=playerPos.y + 6;
 	
 	for (int i=starty; i<endy; i++){
 		for (int j=startx; j<endx; j++){
@@ -46,10 +49,15 @@ void Game::render(){
 				y=Y_MAX-1;
 			}
 			
-			std::cout << level->getTile(x, y);
+			std::cout << this->levels[this->player->getFloor()]->getTile(x, y);
 		}
 		std::cout << std::endl;
 	}
 	
-	level->setTile(this->player->x, this->player->y, '.');
+	this->levels[this->player->getFloor()]->setTile(playerPos.x, playerPos.y, '.');
+	this->player->drawInfo();
+}
+
+void Game::doControls(char in){
+	Control::gameControl(this->player, this->levels[this->player->getFloor()], in);
 }

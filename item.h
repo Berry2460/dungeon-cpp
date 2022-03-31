@@ -4,7 +4,7 @@ enum itemQuality: unsigned char {
 	INFERIOR,
 	NORMAL,
 	SUPERIOR,
-	MAGIC,
+	MAGIC
 };
 
 enum equipType: unsigned char {

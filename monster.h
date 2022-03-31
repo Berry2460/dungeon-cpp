@@ -1,15 +1,21 @@
 #pragma once
 
+#include "level.h"
+
+enum monsterType: unsigned char{
+	UNDEAD,
+	BEAST,
+	DEMON
+};
+
 class Monster{
 	public:
 		Monster();
 		Monster(unsigned char index, unsigned int seed);
 		~Monster();
-		
-		int x;
-		int y;
-		
+
 	private:
+		struct Point pos;
 		short hp;
 		unsigned char monsterIndex;
 };
