@@ -1,2 +1,3 @@
-# dungeon-cpp
-dungeon crawler RPG written in C++
+# C++ Dungeon Crawler
+
+- still in very early development stages.
