@@ -3,18 +3,25 @@
 #include "monster.h"
 #include "player.h"
 #include "control.h"
+#include "seed.h"
 
 #include <iostream>
 
 Game::Game(Player *player){
 	this->player=player;
+	this->seed=new Seed();
+	this->levels=new Level*[MAX_LEVELS];
 	for (int i=0; i<MAX_LEVELS; i++){
-		this->levels[i]=new Level(i+1, 1);
+		this->levels[i]=new Level(i+1, this->seed);
 	}
+	//enter level
+	this->player->downLevel();
+	this->levels[this->player->getFloor()]->enterStart(this->player);
 }
 
 Game::~Game(){
 	delete this->player;
+	delete this->seed;
 	delete [] this->levels;
 }
 
@@ -45,7 +52,7 @@ void Game::render(){
 			if (x >= X_MAX){
 				x=X_MAX-1;
 			}
-			if (y >= X_MAX){
+			if (y >= Y_MAX){
 				y=Y_MAX-1;
 			}
 			
@@ -59,5 +66,37 @@ void Game::render(){
 }
 
 void Game::doControls(char in){
-	Control::gameControl(this->player, this->levels[this->player->getFloor()], in);
+	struct Point playerPos=this->player->getPos();
+	
+	switch (in){
+		case 'w':
+			playerPos.y--;
+			break;
+		case 's':
+			playerPos.y++;
+			break;
+		case 'a':
+			playerPos.x--;
+			break;
+		case 'd':
+			playerPos.x++;
+			break;
+		case 'f':
+			player->levelUp();
+			break;
+	}
+	//collision detection
+	switch (this->levels[this->player->getFloor()]->getTile(playerPos.x, playerPos.y)){
+		case '.': //ground
+			this->player->setPos(playerPos);
+			break;
+		case '/': //downstairs
+			this->player->downLevel();
+			this->levels[this->player->getFloor()]->enterStart(this->player);
+			break;
+		case ']': //upstairs
+			this->player->upLevel();
+			this->levels[this->player->getFloor()]->enterEnd(this->player);
+			break;
+	}
 }

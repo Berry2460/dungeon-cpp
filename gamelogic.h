@@ -6,8 +6,7 @@ const static unsigned char MAX_MONSTERS=255;
 
 class Player;
 class Monster;
-
-const int MAX_LEVELS=10;
+class Seed;
 
 class Game{
 	public:
@@ -18,5 +17,6 @@ class Game{
 		
 	private:
 		Player *player;
-		Level *levels[MAX_LEVELS];
+		Level **levels;
+		Seed *seed;
 };

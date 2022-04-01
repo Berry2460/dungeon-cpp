@@ -17,5 +17,6 @@ int main(){
 		std::cin >> in;
 		game->doControls(in);
 	}
+	delete game;
 	return 0;
 }

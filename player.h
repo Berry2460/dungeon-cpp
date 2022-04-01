@@ -36,7 +36,7 @@ class Player{
 		unsigned int xp;
 		unsigned int xpMax;
 		unsigned char potions;
-		Item *inv;
+		Item **inv;
 		unsigned char str;
 		unsigned char dex;
 		unsigned char vit;
