@@ -2,7 +2,6 @@
 #include "player.h"
 #include "monster.h"
 #include "player.h"
-#include "control.h"
 #include "seed.h"
 
 #include <iostream>

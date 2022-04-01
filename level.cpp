@@ -22,7 +22,7 @@ void Level::generate(Seed *seed){
 	
 	unsigned int rng;
 	bool done=false;
-	int startxVar=1;
+	int startxVar=-1;
 	int startyVar=1;
 	int endxVar=1;
 	int endyVar=1;
@@ -38,13 +38,13 @@ void Level::generate(Seed *seed){
 	//room counter to place start/end
 	int roomCount=0;
 	rng=seed->getSeed();
-	int startAfter=rng%3;
-	int endAfter=rng%4+2;
+	int startAfter=rng%4+1;
+	int endAfter=rng%4+3;
 	
 	//carve rooms
 	while (!done){
 		prevX=startxVar; //for shifting back rows
-		prevConnect={(char)endxVar, (char)startyVar}; //for connecting halls
+		prevConnect={(char)(endxVar), (char)startyVar}; //for connecting halls
 		
 		//gen start point
 		rng=seed->getSeed();
@@ -85,10 +85,11 @@ void Level::generate(Seed *seed){
 			
 			rng=seed->getSeed();
 			prevConnect.y+=1; //avoid akward looking halls
+			if (roomCount > 0){
+				this->carveHall(prevConnect, start);
+			}
 			
-			this->carveHall(prevConnect, start);
 			startxVar+=endxVar-startxVar;
-			
 			//place start
 			if (!startPlaced && roomCount >= startAfter){
 				if (this->level > 1){

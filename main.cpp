@@ -2,7 +2,6 @@
 #include "item.h"
 #include "monster.h"
 #include "gamelogic.h"
-#include "control.h"
 
 #include <iostream>
 
