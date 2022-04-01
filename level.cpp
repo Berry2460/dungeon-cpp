@@ -76,7 +76,7 @@ void Level::generate(Seed *seed){
 		if (endxVar >= X_MAX-1){
 			startxVar-=prevX;
 			endxVar-=prevX;
-			floor+=endyVar-startyVar+2;
+			floor+=endyVar-startyVar+3;
 			//update for new row halls
 			prevConnect.x-=prevX;
 			newRow=true;
@@ -103,7 +103,8 @@ void Level::generate(Seed *seed){
 			prevConnect.y+=rng%3+1; //avoid akward looking halls
 			if (roomCount > 0){
 				if (newRow){
-					prevConnect.x+=4;
+					rng=seed->getSeed();
+					prevConnect.x+=rng%2+4;
 				}
 				this->carveHall(prevConnect, start);
 			}
@@ -151,14 +152,15 @@ void Level::carveHall(Point start, Point end){
 		smallY=start.y;
 	}
 	
-	for (int i=smallX; i<bigX; i++){
-		if (this->map[start.y][i] == '#'){
-			this->map[start.y][i]='.';
-		}
-	}
 	for (int i=smallY; i<bigY; i++){
 		if (this->map[i][end.x] == '#'){
 			this->map[i][end.x]='.';
+		}
+	}
+	
+	for (int i=smallX; i<bigX; i++){
+		if (this->map[start.y][i] == '#'){
+			this->map[start.y][i]='.';
 		}
 	}
 }
