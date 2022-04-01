@@ -5,10 +5,12 @@ struct Point{
 	char y;
 };
 
-const int MAX_LEVELS=10;
+const static int MAX_LEVELS=10;
 
-const char X_MAX=48;
-const char Y_MAX=32;
+const static char X_MAX=48;
+const static char Y_MAX=32;
+
+const static unsigned char MAX_MONSTERS=255;
 
 class Monster;
 class Seed;

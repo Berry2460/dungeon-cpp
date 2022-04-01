@@ -13,7 +13,7 @@ struct monsterData{
 	monsterType type;
 }
 
-const monsterData[]={
+const static monsterData[]={
 	{"Rat", 'r', 1, 1, 4, 1, 3, 0, 50, BEAST},
 	{"Spider", 'p', 1, 2, 3, 2, 3, 1, 50, BEAST},
 	{"Skeleton", 's', 1, 1, 4, 2, 4, 1, 50, UNDEAD},

@@ -28,6 +28,7 @@ void Game::render(){
 	std::system("cls");
 	
 	struct Point playerPos=this->player->getPos();
+	this->seed->getSeed();
 	
 	this->levels[this->player->getFloor()]->setTile(playerPos.x, playerPos.y, '@');
 	

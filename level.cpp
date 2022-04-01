@@ -22,10 +22,10 @@ void Level::generate(Seed *seed){
 	
 	unsigned int rng;
 	bool done=false;
-	int startxVar=-1;
-	int startyVar=1;
-	int endxVar=1;
-	int endyVar=1;
+	int startxVar=0;
+	int startyVar=0;
+	int endxVar=0;
+	int endyVar=0;
 	int floor=1;
 	Point prevConnect;
 	int prevX;
@@ -37,9 +37,21 @@ void Level::generate(Seed *seed){
 	
 	//room counter to place start/end
 	int roomCount=0;
+	//place start
 	rng=seed->getSeed();
-	int startAfter=rng%4+1;
+	int startAfter=rng%3;
+	//place end
+	rng=seed->getSeed();
 	int endAfter=rng%4+3;
+	//swap start/end
+	rng=seed->getSeed();
+	if (rng%2 == 0){
+		int temp=startAfter;
+		startAfter=endAfter;
+		endAfter=temp;
+	}
+	//for hall gen
+	bool newRow;
 	
 	//carve rooms
 	while (!done){
@@ -67,7 +79,11 @@ void Level::generate(Seed *seed){
 			floor+=endyVar-startyVar+2;
 			//update for new row halls
 			prevConnect.x-=prevX;
+			newRow=true;
 			continue;
+		}
+		else{
+			newRow=false;
 		}
 		
 		//check if done
@@ -86,6 +102,9 @@ void Level::generate(Seed *seed){
 			rng=seed->getSeed();
 			prevConnect.y+=1; //avoid akward looking halls
 			if (roomCount > 0){
+				if (newRow){
+					prevConnect.x+=3;
+				}
 				this->carveHall(prevConnect, start);
 			}
 			
@@ -111,12 +130,33 @@ void Level::generate(Seed *seed){
 }
 
 void Level::carveHall(Point start, Point end){
-	for (int i=start.x; i<end.x; i++){
+	int bigX;
+	int smallX;
+	int bigY;
+	int smallY;
+	
+	if (start.x > end.x){
+		bigX=start.x;
+		smallX=end.x;
+	}else{
+		bigX=end.x;
+		smallX=start.x;
+	}
+	
+	if (start.y > end.y){
+		bigY=start.y;
+		smallY=end.y;
+	}else{
+		bigY=end.y;
+		smallY=start.y;
+	}
+	
+	for (int i=smallX; i<bigX; i++){
 		if (this->map[start.y][i] == '#'){
 			this->map[start.y][i]='.';
 		}
 	}
-	for (int i=start.y; i<end.y; i++){
+	for (int i=smallY; i<bigY; i++){
 		if (this->map[i][end.x] == '#'){
 			this->map[i][end.x]='.';
 		}

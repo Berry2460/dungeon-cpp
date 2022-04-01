@@ -2,8 +2,6 @@
 
 #include "level.h"
 
-const static unsigned char MAX_MONSTERS=255;
-
 class Player;
 class Monster;
 class Seed;
