@@ -8,13 +8,15 @@ class Seed;
 
 class Game{
 	public:
-		Game(Player *player);
+		Game(Player *player, unsigned int seed);
 		~Game();
 		void render();
 		void doControls(char in);
+		bool isAlive();
 		
 	private:
 		Player *player;
 		Level **levels;
 		Seed *seed;
+		bool alive;
 };

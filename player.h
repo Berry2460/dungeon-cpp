@@ -2,6 +2,8 @@
 
 #include "level.h"
 
+#include <string>
+
 const static char INV_SIZE=10;
 
 struct Point;
@@ -11,7 +13,7 @@ class Monster;
 
 class Player{
 	public:
-		Player(char *name);
+		Player(std::string name);
 		~Player();
 		void hitMonster(Monster *target);
 		Point getPos();
@@ -22,7 +24,7 @@ class Player{
 		void levelUp();
 		void drawInfo();
 	private:
-		char *name;
+		std::string name;
 		Point pos;
 		short hp;
 		short hpMax;

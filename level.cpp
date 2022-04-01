@@ -6,10 +6,13 @@
 Level::Level(unsigned char level, Seed *seed){
 	this->level=level;
 	this->generate(seed);
+	this->monsters=nullptr;
 }
 
 Level::~Level(){
-	delete [] this->monsters;
+	if (this->monsters != nullptr){
+		delete [] this->monsters;
+	}
 }
 
 void Level::generate(Seed *seed){
@@ -103,8 +106,7 @@ void Level::generate(Seed *seed){
 			prevConnect.y+=rng%3+1; //avoid akward looking halls
 			if (roomCount > 0){
 				if (newRow){
-					rng=seed->getSeed();
-					prevConnect.x+=rng%2+4;
+					prevConnect.x+=4;
 				}
 				this->carveHall(prevConnect, start);
 			}
@@ -152,13 +154,13 @@ void Level::carveHall(Point start, Point end){
 		smallY=start.y;
 	}
 	
-	for (int i=smallY; i<bigY; i++){
+	for (int i=smallY; i<=bigY; i++){
 		if (this->map[i][end.x] == '#'){
 			this->map[i][end.x]='.';
 		}
 	}
 	
-	for (int i=smallX; i<bigX; i++){
+	for (int i=smallX; i<=bigX; i++){
 		if (this->map[start.y][i] == '#'){
 			this->map[start.y][i]='.';
 		}

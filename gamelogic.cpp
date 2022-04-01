@@ -6,9 +6,10 @@
 
 #include <iostream>
 
-Game::Game(Player *player){
+Game::Game(Player *player, unsigned int seed){
+	this->alive=true;
 	this->player=player;
-	this->seed=new Seed();
+	this->seed=new Seed(seed);
 	this->levels=new Level*[MAX_LEVELS];
 	for (int i=0; i<MAX_LEVELS; i++){
 		this->levels[i]=new Level(i+1, this->seed);
@@ -21,7 +22,14 @@ Game::Game(Player *player){
 Game::~Game(){
 	delete this->player;
 	delete this->seed;
-	delete [] this->levels;
+	for (int i=0; i<MAX_LEVELS; i++){
+		delete this->levels[i];
+	}
+	delete[] this->levels;
+}
+
+bool Game::isAlive(){
+	return this->alive;
 }
 
 void Game::render(){
@@ -90,6 +98,9 @@ void Game::doControls(char in){
 			return;
 		case 'u':
 			this->player->levelUp();
+			break;
+		case 'x':
+			this->alive=false;
 			break;
 	}
 	//collision detection

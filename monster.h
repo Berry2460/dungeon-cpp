@@ -10,7 +10,6 @@ enum monsterType: unsigned char{
 
 class Monster{
 	public:
-		Monster();
 		Monster(unsigned char index, unsigned int seed);
 		~Monster();
 

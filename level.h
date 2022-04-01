@@ -26,7 +26,7 @@ class Level{
 		void enterStart(Player *player);
 		void enterEnd(Player *player);
 	private:
-		Monster *monsters;
+		Monster **monsters;
 		char map[Y_MAX][X_MAX];
 		Point start;
 		Point end;

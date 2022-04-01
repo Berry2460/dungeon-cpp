@@ -2,7 +2,7 @@
 
 class Seed{
 	public:
-		Seed();
+		Seed(unsigned int start);
 		~Seed();
 		unsigned int getSeed();
 	private:

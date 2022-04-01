@@ -5,7 +5,7 @@
 
 const static char LEVEL_CAP=40;
 
-Player::Player(char *name){
+Player::Player(std::string name){
 	this->name=name;
 	this->level=1;
 	this->dlevel=0;
@@ -21,11 +21,13 @@ Player::Player(char *name){
 	this->ac=0;
 	this->hp=50;
 	this->hpMax=this->hp;
+	this->inv=nullptr;
 }
 
 Player::~Player(){
-	delete this->name;
-	delete this->inv;
+	if (this->inv != nullptr){
+		delete this->inv;
+	}
 }
 
 Point Player::getPos(){

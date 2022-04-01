@@ -1,7 +1,9 @@
 #include "monster.h"
 
+#include <string>
+
 struct monsterData{
-	const char *name;
+	const std::string name;
 	const char graphic;
 	unsigned char level;
 	unsigned char dmgMin;
@@ -19,8 +21,6 @@ const static monsterData[]={
 	{"Skeleton", 's', 1, 1, 4, 2, 4, 1, 50, UNDEAD},
 	{"Fallen", 'f', 1, 2, 4, 2, 4, 1, 50, DEMON},
 };
-
-Monster::Monster(){}
 
 Monster::Monster(unsigned char index, unsigned int seed){
 	this->monsterIndex=index;

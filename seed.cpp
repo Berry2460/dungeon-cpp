@@ -1,7 +1,7 @@
 #include "seed.h"
 
-Seed::Seed(){
-	this->seed=12345;
+Seed::Seed(unsigned int start){
+	this->seed=start;
 }
 
 Seed::~Seed(){
