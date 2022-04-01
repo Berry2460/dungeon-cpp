@@ -84,6 +84,13 @@ void Game::doControls(char in){
 		case 'f':
 			player->levelUp();
 			break;
+		case 'n':
+			this->player->downLevel();
+			this->levels[this->player->getFloor()]->enterStart(this->player);
+			return;
+		case 'u':
+			this->player->levelUp();
+			break;
 	}
 	//collision detection
 	switch (this->levels[this->player->getFloor()]->getTile(playerPos.x, playerPos.y)){

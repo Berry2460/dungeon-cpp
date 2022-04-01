@@ -100,10 +100,10 @@ void Level::generate(Seed *seed){
 			this->carveRoom(start, end);
 			
 			rng=seed->getSeed();
-			prevConnect.y+=1; //avoid akward looking halls
+			prevConnect.y+=rng%3+1; //avoid akward looking halls
 			if (roomCount > 0){
 				if (newRow){
-					prevConnect.x+=3;
+					prevConnect.x+=4;
 				}
 				this->carveHall(prevConnect, start);
 			}

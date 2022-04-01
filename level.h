@@ -5,7 +5,7 @@ struct Point{
 	char y;
 };
 
-const static int MAX_LEVELS=10;
+const static int MAX_LEVELS=255;
 
 const static char X_MAX=48;
 const static char Y_MAX=32;

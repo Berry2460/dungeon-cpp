@@ -33,8 +33,8 @@ class Player{
 		unsigned char hit;
 		unsigned char level;
 		unsigned char dlevel;
-		unsigned int xp;
-		unsigned int xpMax;
+		int xp;
+		int xpMax;
 		unsigned char potions;
 		Item **inv;
 		unsigned char str;

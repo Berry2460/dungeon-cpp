@@ -3,15 +3,7 @@
 
 #include <iostream>
 
-const static unsigned int XP_CHART[]={
-	100,
-	250,
-	500,
-	1100,
-	2000,
-	3000,
-	5000
-};
+const static char LEVEL_CAP=40;
 
 Player::Player(char *name){
 	this->name=name;
@@ -21,7 +13,7 @@ Player::Player(char *name){
 	this->pos.y=1;
 	this->points=0;
 	this->xp=0;
-	this->xpMax=XP_CHART[this->level-1];
+	this->xpMax=100;
 	this->potions=2;
 	this->str=5;
 	this->dex=5;
@@ -49,7 +41,7 @@ void Player::setPos(Point playerPos){
 }
 
 void Player::downLevel(){
-	if (this->dlevel < 10){
+	if (this->dlevel < MAX_LEVELS){
 		this->dlevel++;
 	}
 }
@@ -61,11 +53,17 @@ void Player::upLevel(){
 }
 
 void Player::levelUp(){
-	this->level++;
-	this->xpMax=XP_CHART[this->level-1];
-	this->hpMax+=2;
-	this->hp=this->hpMax;
-	this->points+=6;
+	this->xp-=this->xpMax;
+	if (this->xp < 0){
+		this->xp=0;
+	}
+	if (this->level < LEVEL_CAP){
+		this->level++;
+		this->xpMax+=this->xpMax>>1;
+		this->hpMax+=2;
+		this->hp=this->hpMax;
+		this->points+=6;
+	}
 }
 
 void Player::hitMonster(Monster *target){
@@ -76,6 +74,7 @@ void Player::drawInfo(){
 	std::cout << "Level: " << (int)this->level << std::endl;
 	std::cout << "HP: " << this->hp << "/" << this->hpMax << std::endl;
 	std::cout << "XP: " << this->xp << "/" << this->xpMax << std::endl;
+	std::cout << "Points: " << (int)this->points << std::endl;
 	
 	std::cout << "X: " << (int)this->pos.x << " Y: " << (int)this->pos.y << std::endl;
 }
