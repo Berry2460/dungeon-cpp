@@ -170,7 +170,9 @@ void Level::carveHall(Point start, Point end){
 void Level::carveRoom(Point start, Point end){
 	for (int i=start.y; i<end.y; i++){
 		for (int j=start.x; j<end.x; j++){
-			this->map[i][j]='.';
+			if (this->map[i][j] == '#'){
+				this->map[i][j]='.';
+			}
 		}
 	}
 }
