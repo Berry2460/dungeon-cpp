@@ -1,7 +1,8 @@
 #include "seed.h"
+#include <iostream>
 
 Seed::Seed(){
-	this->seed=1;
+	this->seed=12345;
 }
 
 Seed::~Seed(){
@@ -13,5 +14,6 @@ unsigned int Seed::getSeed(){
 }
 
 void Seed::nextSeed(){
-	this->seed=(seed*seed*317)%47 + (seed*seed+1)%2147483647; //random seed function
+	this->seed=(seed+(seed>>2)+1)%4294967295; //random seed function
+	std::cout << this->seed << std::endl;
 }

@@ -111,10 +111,14 @@ void Level::generate(Seed *seed){
 
 void Level::carveHall(Point start, Point end){
 	for (int i=start.x; i<end.x; i++){
-		this->map[start.y][i]='.';
+		if (this->map[start.y][i] == '#'){
+			this->map[start.y][i]='.';
+		}
 	}
 	for (int i=start.y; i<end.y; i++){
-		this->map[i][end.x]='.';
+		if (this->map[i][end.x] == '#'){
+			this->map[i][end.x]='.';
+		}
 	}
 }
 
